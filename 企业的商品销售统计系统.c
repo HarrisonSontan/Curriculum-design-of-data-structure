@@ -1,4 +1,4 @@
-// Ô¤´¦ÀíÖ¸Áî£¬ÓÃÓÚ½ûÓÃÄ³Ğ©º¯ÊıµÄ°²È«ĞÔ¾¯¸æ
+// é¢„å¤„ç†æŒ‡ä»¤ï¼Œç”¨äºç¦ç”¨æŸäº›å‡½æ•°çš„å®‰å…¨æ€§è­¦å‘Š
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,46 +6,46 @@
 #include <time.h>
 #include <math.h>
 
-// ¶¨Òå²úÆ·ĞÅÏ¢µÄ½á¹¹Ìå
+// å®šä¹‰äº§å“ä¿¡æ¯çš„ç»“æ„ä½“
 struct Product {
-    char name[6];         // ²úÆ·±àºÅ
-    float unitPrice;      // ²úÆ·µ¥¼Û
-    int soldQuantity;     // ÏúÊÛÊıÁ¿
-    int stockQuantity;    // ¿â´æÊıÁ¿
-    float weight;         // ²úÆ·ÖØÁ¿
-    float volume;         // ²úÆ·Ìå»ı
-    int returnQuantity;   // ÍË»õÊıÁ¿
-    float salesmoney;     // ÏúÊÛ½ğ¶î
-    float stockmoney;     // ¿â´æ½ğ¶î
-    float returnmoney;    // ÍË»õ½ğ¶î
-    int sortedIndex;      // ÓÃÀ´¼ÇÂ¼ÅÅĞòºóµÄÎ»ÖÃ
+    char name[6];         // äº§å“ç¼–å·
+    float unitPrice;      // äº§å“å•ä»·
+    int soldQuantity;     // é”€å”®æ•°é‡
+    int stockQuantity;    // åº“å­˜æ•°é‡
+    float weight;         // äº§å“é‡é‡
+    float volume;         // äº§å“ä½“ç§¯
+    int returnQuantity;   // é€€è´§æ•°é‡
+    float salesmoney;     // é”€å”®é‡‘é¢
+    float stockmoney;     // åº“å­˜é‡‘é¢
+    float returnmoney;    // é€€è´§é‡‘é¢
+    int sortedIndex;      // ç”¨æ¥è®°å½•æ’åºåçš„ä½ç½®
 };
 
-// ¶¨ÒåÈ«¾Ö±äÁ¿£¬±íÊ¾×î´ó²úÆ·ÊıÁ¿
+// å®šä¹‰å…¨å±€å˜é‡ï¼Œè¡¨ç¤ºæœ€å¤§äº§å“æ•°é‡
 #define MAX_PRODUCTS 10001
 
-//¶ÁÎÄ¼ş(½«Íâ´æµÄtxt¶Áµ½ÄÚ´æ)
-//´«ÈëµÄ±äÁ¿ÊÇ²úÆ·½á¹¹ÌåµÄÊı×é£¬ºÍ¼ÆÊıÆ÷¼ÇÂ¼²úÆ·ÊıÁ¿
+//è¯»æ–‡ä»¶(å°†å¤–å­˜çš„txtè¯»åˆ°å†…å­˜)
+//ä¼ å…¥çš„å˜é‡æ˜¯äº§å“ç»“æ„ä½“çš„æ•°ç»„ï¼Œå’Œè®¡æ•°å™¨è®°å½•äº§å“æ•°é‡
 void readProducts(const char* fileName,struct Product products[], int* numProducts) {
 
-    //´ËĞĞÉùÃ÷ÁËÒ»¸öÖ¸ÏòFILE½á¹¹ÌåµÄÖ¸Õë£¬ÃüÃûÎªfile£¬²¢ÒÔÖ»¶ÁÄ£Ê½£¨"r"£©´ò¿ªÃûÎª"fileName"µÄÎÄ¼ş¡£
-    //fopenº¯Êı·µ»ØÖ¸ÏòÒÑ´ò¿ªÎÄ¼şµÄÖ¸Õë¡£
+    //æ­¤è¡Œå£°æ˜äº†ä¸€ä¸ªæŒ‡å‘FILEç»“æ„ä½“çš„æŒ‡é’ˆï¼Œå‘½åä¸ºfileï¼Œå¹¶ä»¥åªè¯»æ¨¡å¼ï¼ˆ"r"ï¼‰æ‰“å¼€åä¸º"fileName"çš„æ–‡ä»¶ã€‚
+    //fopenå‡½æ•°è¿”å›æŒ‡å‘å·²æ‰“å¼€æ–‡ä»¶çš„æŒ‡é’ˆã€‚
     FILE* file = fopen(fileName, "r");
 
-    //ÅĞ¶ÏÊÇ·ñÕıÈ·¶ÁÈëÎÄ¼ş
+    //åˆ¤æ–­æ˜¯å¦æ­£ç¡®è¯»å…¥æ–‡ä»¶
     if (file == NULL) {
-        printf("´ò¿ªÎÄ¼şÊ±·¢Éú´íÎó¡£\n");
+        printf("æ‰“å¼€æ–‡ä»¶æ—¶å‘ç”Ÿé”™è¯¯ã€‚\n");
         exit(1);
     }
 
-    //³õÊ¼»¯¼ÆÊıÆ÷Îª0
+    //åˆå§‹åŒ–è®¡æ•°å™¨ä¸º0
     *numProducts = 0;
 
-    //Ê¹ÓÃclockº¯Êı¼ÇÂ¼¿ªÊ¼Ê±¼ä¡£ÕâÓÃÓÚ²âÁ¿´ÓÎÄ¼şÖĞ¶ÁÈ¡ºÍ´¦ÀíÊı¾İËùĞèµÄÊ±¼ä¡£
+    //ä½¿ç”¨clockå‡½æ•°è®°å½•å¼€å§‹æ—¶é—´ã€‚è¿™ç”¨äºæµ‹é‡ä»æ–‡ä»¶ä¸­è¯»å–å’Œå¤„ç†æ•°æ®æ‰€éœ€çš„æ—¶é—´ã€‚
     clock_t start_time = clock();
 
-    // Ê¹ÓÃfscanf´ÓÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ¡£Ëü´ÓÎÄ¼şµÄÃ¿Ò»ĞĞÖĞ¶ÁÈ¡Æß¸öÖµ¡£
-    // Ö»Òª³É¹¦´ÓÎÄ¼şÖĞ¶ÁÈ¡Æß¸öÖµ£¬Ñ­»·¾Í»á¼ÌĞøÖ´ĞĞ¡£
+    // ä½¿ç”¨fscanfä»æ–‡ä»¶ä¸­è¯»å–æ•°æ®ã€‚å®ƒä»æ–‡ä»¶çš„æ¯ä¸€è¡Œä¸­è¯»å–ä¸ƒä¸ªå€¼ã€‚
+    // åªè¦æˆåŠŸä»æ–‡ä»¶ä¸­è¯»å–ä¸ƒä¸ªå€¼ï¼Œå¾ªç¯å°±ä¼šç»§ç»­æ‰§è¡Œã€‚
     while (fscanf(file, "%5s %f %d %d %f %f %d",
         products[*numProducts].name,
         &products[*numProducts].unitPrice,
@@ -55,8 +55,8 @@ void readProducts(const char* fileName,struct Product products[], int* numProduc
         &products[*numProducts].volume,
         &products[*numProducts].returnQuantity) == 7) {
 
-        // Êı¾İÊÇËæ»úÉú³ÉµÄ£¬name»áÓĞÖØ¸´£¬²»¶ÁÈ¡
-        // ¼ì²éÊÇ·ñÒÑ¾­´æÔÚÏàÍ¬µÄname
+        // æ•°æ®æ˜¯éšæœºç”Ÿæˆçš„ï¼Œnameä¼šæœ‰é‡å¤ï¼Œä¸è¯»å–
+        // æ£€æŸ¥æ˜¯å¦å·²ç»å­˜åœ¨ç›¸åŒçš„name
         int duplicate = 0;
         for (int i = 0; i < *numProducts; i++) {
             if (strcmp(products[i].name, products[*numProducts].name) == 0) {
@@ -65,39 +65,39 @@ void readProducts(const char* fileName,struct Product products[], int* numProduc
             }
         }
         if (duplicate) {
-            // Èç¹û´æÔÚÏàÍ¬µÄname£¬²»Ôö¼ÓnumProducts²¢¼ÌĞøÏÂÒ»ÂÖÑ­»·
+            // å¦‚æœå­˜åœ¨ç›¸åŒçš„nameï¼Œä¸å¢åŠ numProductså¹¶ç»§ç»­ä¸‹ä¸€è½®å¾ªç¯
             continue;
         }
 
-        // Òª¼ÆËãµÄÈı¸öÖµµÄ¾Í³õÊ¼»¯Îª0.0
+        // è¦è®¡ç®—çš„ä¸‰ä¸ªå€¼çš„å°±åˆå§‹åŒ–ä¸º0.0
         products[*numProducts].salesmoney = 0.0;
         products[*numProducts].stockmoney = 0.0;
         products[*numProducts].returnmoney = 0.0;
 
-        // Ã¿´ÎÔËĞĞ¶¼½«¼ÆÊıÆ÷++
+        // æ¯æ¬¡è¿è¡Œéƒ½å°†è®¡æ•°å™¨++
         (*numProducts)++;
 
-        // ÅĞ¶Ï±ß½çÌõ¼ş
+        // åˆ¤æ–­è¾¹ç•Œæ¡ä»¶
         if (*numProducts >= MAX_PRODUCTS) {
-            printf("²úÆ·¹ı¶à£¬ÇëÔö¼Ó MAX_PRODUCTS µÄÖµ¡£\n");
+            printf("äº§å“è¿‡å¤šï¼Œè¯·å¢åŠ  MAX_PRODUCTS çš„å€¼ã€‚\n");
             exit(1);
         }
     }
 
-    //µ½ÕâÀïÔÙ´Î¶ÁÈ¡Ò»ÏÂµ±Ç°Ê±¼ä
+    //åˆ°è¿™é‡Œå†æ¬¡è¯»å–ä¸€ä¸‹å½“å‰æ—¶é—´
     clock_t end_time = clock();
 
-    //ÕâÀïµÄÊ±¼äÓëÇ°ÃæµÄÊ±¼äÏà¼õ£¬¾Í¿ÉÒÔµÃ³ö¶ÁÈ¡ÎÄ¼şµÄÊ±¼ä
+    //è¿™é‡Œçš„æ—¶é—´ä¸å‰é¢çš„æ—¶é—´ç›¸å‡ï¼Œå°±å¯ä»¥å¾—å‡ºè¯»å–æ–‡ä»¶çš„æ—¶é—´
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("1¡¢¶ÁÈ¡Êı¾İ»¨ÁË%lf Ãë¡£\n\n\n\n", elapsed_time);
+    printf("1ã€è¯»å–æ•°æ®èŠ±äº†%lf ç§’ã€‚\n\n\n\n", elapsed_time);
 
     fclose(file);
 }
 
-//´òÓ¡ÍêÕûÊı¾İ
+//æ‰“å°å®Œæ•´æ•°æ®
 void printProducts(struct Product products[], int numProducts) {
-    printf("Êı¾İ±í¸ñ£º\n");
-    printf("²úÆ·Ãû³Æ\tµ¥¼Û\tÏúÊÛÊıÁ¿\t¿â´æÊıÁ¿\tÖØÁ¿\tÌå»ı\tÍË»õÊıÁ¿\tÏúÊÛ¶î\t¿â´æ½ğ¶î\tÍË¿î½ğ¶î\n");
+    printf("æ•°æ®è¡¨æ ¼ï¼š\n");
+    printf("äº§å“åç§°\tå•ä»·\té”€å”®æ•°é‡\tåº“å­˜æ•°é‡\té‡é‡\tä½“ç§¯\té€€è´§æ•°é‡\té”€å”®é¢\tåº“å­˜é‡‘é¢\té€€æ¬¾é‡‘é¢\n");
     for (int i = 0; i < numProducts; i++) {
         printf("%s\t\t", products[i].name);
         printf("%.2f\t", products[i].unitPrice);
@@ -113,45 +113,45 @@ void printProducts(struct Product products[], int numProducts) {
     }
 }
 
-// ¼ÆËãÏúÊÛ¶î¡¢¿â´æ½ğ¶î¡¢ÍË»õ½ğ¶î£¬²¢¼ÇÂ¼¼ÆËãËùÓÃµÄÊ±¼ä
+// è®¡ç®—é”€å”®é¢ã€åº“å­˜é‡‘é¢ã€é€€è´§é‡‘é¢ï¼Œå¹¶è®°å½•è®¡ç®—æ‰€ç”¨çš„æ—¶é—´
 void calculate(struct Product products[], int numProducts){
-    // Ê¹ÓÃclockº¯Êı¼ÇÂ¼¿ªÊ¼Ê±¼ä
+    // ä½¿ç”¨clockå‡½æ•°è®°å½•å¼€å§‹æ—¶é—´
     clock_t start_time = clock();
 
-    printf("±àºÅ\t\tÏúÊÛ¶î\t\t\t¿â´æ½ğ¶î\tÍË¿î½ğ¶î\n");
+    printf("ç¼–å·\t\té”€å”®é¢\t\t\tåº“å­˜é‡‘é¢\té€€æ¬¾é‡‘é¢\n");
     for (int i = 0; i < numProducts; i++){
-        // ¼ÆËãÏúÊÛ¶î
+        // è®¡ç®—é”€å”®é¢
         products[i].salesmoney = products[i].unitPrice * products[i].soldQuantity;
-        // ¼ÆËã¿â´æ½ğ¶î
+        // è®¡ç®—åº“å­˜é‡‘é¢
         products[i].stockmoney = products[i].unitPrice * products[i].stockQuantity;
-        // ¼ÆËãÍË»õ½ğ¶î
+        // è®¡ç®—é€€è´§é‡‘é¢
         products[i].returnmoney = products[i].unitPrice * products[i].returnQuantity;
         printf("%s\t\t%f\t\t%f\t%f\n", products[i].name, products[i].salesmoney, products[i].stockmoney, products[i].returnmoney);
     }
 
-    // µ½ÕâÀïÔÙ´Î¶ÁÈ¡Ò»ÏÂµ±Ç°Ê±¼ä
+    // åˆ°è¿™é‡Œå†æ¬¡è¯»å–ä¸€ä¸‹å½“å‰æ—¶é—´
     clock_t end_time = clock();
 
-    // ÕâÀïµÄÊ±¼äÓëÇ°ÃæµÄÊ±¼äÏà¼õ£¬¾Í¿ÉÒÔµÃ³ö¼ÆËãµÄÊ±¼ä
+    // è¿™é‡Œçš„æ—¶é—´ä¸å‰é¢çš„æ—¶é—´ç›¸å‡ï¼Œå°±å¯ä»¥å¾—å‡ºè®¡ç®—çš„æ—¶é—´
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n2¡¢¼ÆËãÏúÊÛ¶î¡¢¿â´æ½ğ¶î¡¢ÍË»õ½ğ¶î»¨ÁË %lf Ãë¡£\n\n\n\n", elapsed_time);
+    printf("\n2ã€è®¡ç®—é”€å”®é¢ã€åº“å­˜é‡‘é¢ã€é€€è´§é‡‘é¢èŠ±äº† %lf ç§’ã€‚\n\n\n\n", elapsed_time);
 }
 
-//Ë¢ĞÂÎÄ¼ş(Ğ´ÎÄ¼ş²Ù×÷)
+//åˆ·æ–°æ–‡ä»¶(å†™æ–‡ä»¶æ“ä½œ)
 void refreshFile(struct Product products[], int numProducts) {
-    // ´ËĞĞÉùÃ÷ÁËÒ»¸öÖ¸ÏòFILE½á¹¹ÌåµÄÖ¸Õë£¬ÃüÃûÎªfile£¬²¢ÒÔĞ´ÈëÄ£Ê½£¨"w"£©´ò¿ªÃûÎª"Ë¢ĞÂºóµÄÎÄ¼ş.txt"µÄÎÄ¼ş¡£
-    FILE* file = fopen("Ë¢ĞÂºóµÄÎÄ¼ş.txt", "w");
+    // æ­¤è¡Œå£°æ˜äº†ä¸€ä¸ªæŒ‡å‘FILEç»“æ„ä½“çš„æŒ‡é’ˆï¼Œå‘½åä¸ºfileï¼Œå¹¶ä»¥å†™å…¥æ¨¡å¼ï¼ˆ"w"ï¼‰æ‰“å¼€åä¸º"åˆ·æ–°åçš„æ–‡ä»¶.txt"çš„æ–‡ä»¶ã€‚
+    FILE* file = fopen("åˆ·æ–°åçš„æ–‡ä»¶.txt", "w");
 
-    //Ê¹ÓÃclockº¯Êı¼ÇÂ¼¿ªÊ¼Ê±¼ä¡£ÕâÓÃÓÚ²âÁ¿´ÓÎÄ¼şÖĞ¶ÁÈ¡ºÍ´¦ÀíÊı¾İËùĞèµÄÊ±¼ä¡£
+    //ä½¿ç”¨clockå‡½æ•°è®°å½•å¼€å§‹æ—¶é—´ã€‚è¿™ç”¨äºæµ‹é‡ä»æ–‡ä»¶ä¸­è¯»å–å’Œå¤„ç†æ•°æ®æ‰€éœ€çš„æ—¶é—´ã€‚
     clock_t start_time = clock();
 
-    // ÅĞ¶ÏÊÇ·ñÕıÈ·´ò¿ªÎÄ¼ş
+    // åˆ¤æ–­æ˜¯å¦æ­£ç¡®æ‰“å¼€æ–‡ä»¶
     if (file == NULL) {
-        printf("´ò¿ªÎÄ¼şÊ±·¢Éú´íÎó¡£\n");
+        printf("æ‰“å¼€æ–‡ä»¶æ—¶å‘ç”Ÿé”™è¯¯ã€‚\n");
         exit(1);
     }
 
-    // ½«Ã¿¸ö²úÆ·µÄĞÅÏ¢Ğ´ÈëÎÄ¼ş
+    // å°†æ¯ä¸ªäº§å“çš„ä¿¡æ¯å†™å…¥æ–‡ä»¶
     for (int i = 0; i < numProducts; i++) {
         fprintf(file, "%s\t\t%.2f\t%d\t\t%d\t\t%.2f\t%.2f\t%d\t\t%.2f\t%.2f\t%.2f\n",
             products[i].name,
@@ -166,15 +166,15 @@ void refreshFile(struct Product products[], int numProducts) {
             products[i].returnmoney);
     }
 
-    printf("Ë¢ĞÂÎÄ¼ş³É¹¦£¬ĞÂÎÄ¼şÃûÎª\"Ë¢ĞÂºóµÄÎÄ¼ş.txt\"¡£\n");
-    //ÕâÀïµÄÊ±¼äÓëÇ°ÃæµÄÊ±¼äÏà¼õ£¬¾Í¿ÉÒÔµÃ³ö¶ÁÈ¡ÎÄ¼şµÄÊ±¼ä
+    printf("åˆ·æ–°æ–‡ä»¶æˆåŠŸï¼Œæ–°æ–‡ä»¶åä¸º\"åˆ·æ–°åçš„æ–‡ä»¶.txt\"ã€‚\n");
+    //è¿™é‡Œçš„æ—¶é—´ä¸å‰é¢çš„æ—¶é—´ç›¸å‡ï¼Œå°±å¯ä»¥å¾—å‡ºè¯»å–æ–‡ä»¶çš„æ—¶é—´
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("3¡¢Ë¢ĞÂÊı¾İ»¨ÁË%lf Ãë¡£\n\n\n\n", elapsed_time);
+    printf("3ã€åˆ·æ–°æ•°æ®èŠ±äº†%lf ç§’ã€‚\n\n\n\n", elapsed_time);
     fclose(file);
 }
 
-// Ö±½Ó²åÈëÅÅĞòÒÔÉÌÆ·µ¥¼ÛÎª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// ç›´æ¥æ’å…¥æ’åºä»¥å•†å“å•ä»·ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void insertionSortByUnitPrice(struct Product products[], int numProducts) {
     clock_t start_time = clock();
     for (int i = 1; i < numProducts; i++) {
@@ -190,17 +190,17 @@ void insertionSortByUnitPrice(struct Product products[], int numProducts) {
     }
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n4¡¢Ö±½Ó²åÈëÅÅĞòÒÔÉÌÆ·µ¥¼ÛÎª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n4ã€ç›´æ¥æ’å…¥æ’åºä»¥å•†å“å•ä»·ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
-// ÕÛ°ë²åÈëÅÅĞòÒÔÏúÊÛÊıÁ¿Îª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// æŠ˜åŠæ’å…¥æ’åºä»¥é”€å”®æ•°é‡ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void binaryInsertionSortBySoldQuantity(struct Product products[], int numProducts) {
     clock_t start_time = clock();
     for (int i = 1; i < numProducts; i++) {
         struct Product key = products[i];
         int low = 0, high = i - 1;
 
-        // ¶ş·Ö²éÕÒ²åÈëÎ»ÖÃ
+        // äºŒåˆ†æŸ¥æ‰¾æ’å…¥ä½ç½®
         while (low <= high) {
             int mid = (low + high) / 2;
             if (products[mid].soldQuantity < key.soldQuantity) {
@@ -211,48 +211,48 @@ void binaryInsertionSortBySoldQuantity(struct Product products[], int numProduct
             }
         }
 
-        // ÒÆ¶¯ÔªËØÒÔ²åÈëĞÂÔªËØ
+        // ç§»åŠ¨å…ƒç´ ä»¥æ’å…¥æ–°å…ƒç´ 
         for (int j = i - 1; j >= low; j--) {
             products[j + 1] = products[j];
         }
-        // ²åÈëĞÂÔªËØ
+        // æ’å…¥æ–°å…ƒç´ 
         products[low] = key;
     }
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n5¡¢ÕÛ°ë²åÈëÅÅĞòÒÔÏúÊÛÊıÁ¿Îª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n5ã€æŠ˜åŠæ’å…¥æ’åºä»¥é”€å”®æ•°é‡ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
-// Ï£¶ûÅÅĞòÒÔÏúÊÛ¶îÎª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// å¸Œå°”æ’åºä»¥é”€å”®é¢ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void shellSortBySalesMoney(struct Product products[], int numProducts) {
     clock_t start_time = clock();
     int gap, i, j;
     struct Product temp;
 
-    // ³õÊ¼²½³¤ÉèÖÃÎªÊı×é³¤¶ÈµÄÒ»°ë
-    // Ò²¾ÍÊÇÏÈ°ÑÊı×é·Ö³Égap/2¸ö×é£¬ÔÚ×éÄÚ½øĞĞÅÅĞò£¬ÅÅĞòÍê£¬ÔÙ±ägap/4¸ö×é£¬¼ÌĞøÅÅĞò£¬ÒÔ´ËÀàÍÆ£¬Ö±µ½gap==0
+    // åˆå§‹æ­¥é•¿è®¾ç½®ä¸ºæ•°ç»„é•¿åº¦çš„ä¸€åŠ
+    // ä¹Ÿå°±æ˜¯å…ˆæŠŠæ•°ç»„åˆ†æˆgap/2ä¸ªç»„ï¼Œåœ¨ç»„å†…è¿›è¡Œæ’åºï¼Œæ’åºå®Œï¼Œå†å˜gap/4ä¸ªç»„ï¼Œç»§ç»­æ’åºï¼Œä»¥æ­¤ç±»æ¨ï¼Œç›´åˆ°gap==0
     for (gap = numProducts / 2; gap > 0; gap /= 2) {
-        // ¶ÔÃ¿¸ö²½³¤½øĞĞ²åÈëÅÅĞò
+        // å¯¹æ¯ä¸ªæ­¥é•¿è¿›è¡Œæ’å…¥æ’åº
         for (i = gap; i < numProducts; i++) {
             temp = products[i];
 
-            // ÔÚµ±Ç°²½³¤ÄÚ½øĞĞ²åÈëÅÅĞò
-            // ¼ÙÉè×éÄÚµÚÒ»¸öÔªËØÒÑ¾­ÅÅºÃ£¬jÒ»¿ªÊ¼µÄÎ»ÖÃ¾ÍÊÇÒ»¸ö×éÄÚµÄ×îºóÒ»¸öÎ»ÖÃ£¬È»ºó½«´ı²åÈëÔªËØ½øĞĞ¶Ô±È²åÈëºÏÊÊµÄÎ»ÖÃ
-            // ÒòÎª²½³¤Îªgap£¬ËùÒÔjÒª¼õÉÙµÄÊÇgap¸öÎ»ÖÃ£¬°ÑjµÄÎ»ÖÃ¾Í½ÓÊÕ±Ètemp´óµÄÖµ£¬Ò²¾ÍÊÇ°Ñ´óµÄ·ÅºóÃæ£¬ÊµÏÖÉıĞò
+            // åœ¨å½“å‰æ­¥é•¿å†…è¿›è¡Œæ’å…¥æ’åº
+            // å‡è®¾ç»„å†…ç¬¬ä¸€ä¸ªå…ƒç´ å·²ç»æ’å¥½ï¼Œjä¸€å¼€å§‹çš„ä½ç½®å°±æ˜¯ä¸€ä¸ªç»„å†…çš„æœ€åä¸€ä¸ªä½ç½®ï¼Œç„¶åå°†å¾…æ’å…¥å…ƒç´ è¿›è¡Œå¯¹æ¯”æ’å…¥åˆé€‚çš„ä½ç½®
+            // å› ä¸ºæ­¥é•¿ä¸ºgapï¼Œæ‰€ä»¥jè¦å‡å°‘çš„æ˜¯gapä¸ªä½ç½®ï¼ŒæŠŠjçš„ä½ç½®å°±æ¥æ”¶æ¯”tempå¤§çš„å€¼ï¼Œä¹Ÿå°±æ˜¯æŠŠå¤§çš„æ”¾åé¢ï¼Œå®ç°å‡åº
             for (j = i; j >= gap && products[j - gap].salesmoney > temp.salesmoney; j -= gap) {
                 products[j] = products[j - gap];
             }
 
-            // ²åÈëµ±Ç°ÔªËØµ½ÕıÈ·µÄÎ»ÖÃ
+            // æ’å…¥å½“å‰å…ƒç´ åˆ°æ­£ç¡®çš„ä½ç½®
             products[j] = temp;
         }
     }
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n6¡¢Ï£¶ûÅÅĞòÒÔÏúÊÛ¶îÎª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n6ã€å¸Œå°”æ’åºä»¥é”€å”®é¢ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
-// Ã°ÅİÅÅĞòÒÔ¿â´æÁ¿Îª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// å†’æ³¡æ’åºä»¥åº“å­˜é‡ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void bubbleSortByStockQuantity(struct Product products[], int numProducts) {
     clock_t start_time = clock();
     for (int i = 0; i < numProducts - 1; i++) {
@@ -266,28 +266,28 @@ void bubbleSortByStockQuantity(struct Product products[], int numProducts) {
     }
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n7¡¢Ã°ÅİÅÅĞòÒÔ¿â´æÁ¿Îª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n7ã€å†’æ³¡æ’åºä»¥åº“å­˜é‡ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
-// ¸¨Öúº¯Êı£¬ÓÃÓÚ·ÖÇø²Ù×÷
+// è¾…åŠ©å‡½æ•°ï¼Œç”¨äºåˆ†åŒºæ“ä½œ
 int partitionByStockMoney(struct Product products[], int low, int high) {
-    // Ñ¡ÔñµÚÒ»¸öÔªËØÎª»ù×¼
+    // é€‰æ‹©ç¬¬ä¸€ä¸ªå…ƒç´ ä¸ºåŸºå‡†
     float pivot = products[low].stockmoney;
     int left = low + 1;
     int right = high;
 
     while (left <= right) {
-        // ´ÓÓÒÏò×óÕÒµÚÒ»¸öĞ¡ÓÚ»ù×¼ÖµµÄÔªËØ
+        // ä»å³å‘å·¦æ‰¾ç¬¬ä¸€ä¸ªå°äºåŸºå‡†å€¼çš„å…ƒç´ 
         while (left <= right && products[right].stockmoney >= pivot) {
             right--;
         }
 
-        // ´Ó×óÏòÓÒÕÒµÚÒ»¸ö´óÓÚ»ù×¼ÖµµÄÔªËØ
+        // ä»å·¦å‘å³æ‰¾ç¬¬ä¸€ä¸ªå¤§äºåŸºå‡†å€¼çš„å…ƒç´ 
         while (left <= right && products[left].stockmoney < pivot) {
             left++;
         }
 
-        // ½»»»ÕÒµ½µÄÁ½¸öÔªËØ
+        // äº¤æ¢æ‰¾åˆ°çš„ä¸¤ä¸ªå…ƒç´ 
         if (left <= right) {
             struct Product temp = products[left];
             products[left] = products[right];
@@ -297,7 +297,7 @@ int partitionByStockMoney(struct Product products[], int low, int high) {
         }
     }
 
-    // ½»»»»ù×¼ÔªËØºÍ×îºóÒ»¸öĞ¡ÓÚ»ù×¼µÄÔªËØ
+    // äº¤æ¢åŸºå‡†å…ƒç´ å’Œæœ€åä¸€ä¸ªå°äºåŸºå‡†çš„å…ƒç´ 
     struct Product temp = products[low];
     products[low] = products[right];
     products[right] = temp;
@@ -305,19 +305,19 @@ int partitionByStockMoney(struct Product products[], int low, int high) {
     return right;
 }
 
-// ¿ìËÙÅÅĞòÒÔ¿â´æ½ğ¶îÎª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// å¿«é€Ÿæ’åºä»¥åº“å­˜é‡‘é¢ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void quickSortByStockMoney(struct Product products[], int low, int high) {
     if (low < high) {
-        // ·ÖÇø²Ù×÷
+        // åˆ†åŒºæ“ä½œ
         int pivotIndex = partitionByStockMoney(products, low, high);
 
-        // µİ¹éÅÅĞò×óÓÒ×ÓÊı×é
+        // é€’å½’æ’åºå·¦å³å­æ•°ç»„
         quickSortByStockMoney(products, low, pivotIndex - 1);
         quickSortByStockMoney(products, pivotIndex + 1, high);
     }
 }
 
-// Ñ¡ÔñÅÅĞòÒÔÖØÁ¿Îª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// é€‰æ‹©æ’åºä»¥é‡é‡ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void selectionSortByWeight(struct Product products[], int numProducts) {
     clock_t start_time = clock();
 
@@ -330,7 +330,7 @@ void selectionSortByWeight(struct Product products[], int numProducts) {
             }
         }
 
-        // ½»»»products[i]ºÍproducts[minIndex]
+        // äº¤æ¢products[i]å’Œproducts[minIndex]
         struct Product temp = products[i];
         products[i] = products[minIndex];
         products[minIndex] = temp;
@@ -338,76 +338,76 @@ void selectionSortByWeight(struct Product products[], int numProducts) {
 
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n9¡¢Ñ¡ÔñÅÅĞòÒÔÖØÁ¿Îª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n9ã€é€‰æ‹©æ’åºä»¥é‡é‡ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
-// µ÷Õû¶Ñ
+// è°ƒæ•´å †
 void heapify(struct Product products[], int numProducts, int i) {
-    int largest = i; // ³õÊ¼»¯×î´óÔªËØÎª¸ù½Úµã
-    int left = 2 * i + 1; // ×ó×Ó½Úµã
-    int right = 2 * i + 2; // ÓÒ×Ó½Úµã
+    int largest = i; // åˆå§‹åŒ–æœ€å¤§å…ƒç´ ä¸ºæ ¹èŠ‚ç‚¹
+    int left = 2 * i + 1; // å·¦å­èŠ‚ç‚¹
+    int right = 2 * i + 2; // å³å­èŠ‚ç‚¹
 
-    // Èç¹û×ó×Ó½Úµã±È¸ù½Úµã´ó
+    // å¦‚æœå·¦å­èŠ‚ç‚¹æ¯”æ ¹èŠ‚ç‚¹å¤§
     if (left < numProducts && products[left].volume > products[largest].volume)
         largest = left;
 
-    // Èç¹ûÓÒ×Ó½Úµã±È¸ù½Úµã´ó
+    // å¦‚æœå³å­èŠ‚ç‚¹æ¯”æ ¹èŠ‚ç‚¹å¤§
     if (right < numProducts && products[right].volume > products[largest].volume)
         largest = right;
 
-    // Èç¹û×î´óÔªËØ²»ÊÇ¸ù½Úµã
+    // å¦‚æœæœ€å¤§å…ƒç´ ä¸æ˜¯æ ¹èŠ‚ç‚¹
     if (largest != i) {
-        // ½»»»¸ù½ÚµãÓë×î´óÔªËØ
+        // äº¤æ¢æ ¹èŠ‚ç‚¹ä¸æœ€å¤§å…ƒç´ 
         struct Product temp = products[i];
         products[i] = products[largest];
         products[largest] = temp;
 
-        // µİ¹éµ÷Õû±»ÆÆ»µµÄ×Ó¶Ñ
+        // é€’å½’è°ƒæ•´è¢«ç ´åçš„å­å †
         heapify(products, numProducts, largest);
     }
 }
 
-// ¶ÑÅÅĞòÒÔÌå»ıÎª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// å †æ’åºä»¥ä½“ç§¯ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void heapSortByVolume(struct Product products[], int numProducts) {
     clock_t start_time = clock();
 
-    // ¹¹½¨×î´ó¶Ñ
+    // æ„å»ºæœ€å¤§å †
     for (int i = numProducts / 2 - 1; i >= 0; i--)
         heapify(products, numProducts, i);
 
-    // Ò»¸ö¸ö´Ó¶Ñ¶¥È¡³öÔªËØ
+    // ä¸€ä¸ªä¸ªä»å †é¡¶å–å‡ºå…ƒç´ 
     for (int i = numProducts - 1; i > 0; i--) {
-        // ½»»»¸ù½ÚµãÓëµ±Ç°¶ÑµÄ×îºóÒ»¸ö½Úµã
+        // äº¤æ¢æ ¹èŠ‚ç‚¹ä¸å½“å‰å †çš„æœ€åä¸€ä¸ªèŠ‚ç‚¹
         struct Product temp = products[0];
         products[0] = products[i];
         products[i] = temp;
 
-        // µ÷ÕûĞÂµÄ¸ù½Úµã
+        // è°ƒæ•´æ–°çš„æ ¹èŠ‚ç‚¹
         heapify(products, i, 0);
     }
 
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n10¡¢¶ÑÅÅĞòÒÔÌå»ıÎª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n10ã€å †æ’åºä»¥ä½“ç§¯ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
-// ºÏ²¢Á½¸öÓĞĞò×ÓÊı×é
+// åˆå¹¶ä¸¤ä¸ªæœ‰åºå­æ•°ç»„
 void merge(struct Product products[], int left, int mid, int right) {
     int i, j, k;
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
-    // ´´½¨¶¯Ì¬·ÖÅäµÄÁÙÊ±Êı×é
+    // åˆ›å»ºåŠ¨æ€åˆ†é…çš„ä¸´æ—¶æ•°ç»„
     struct Product* L = (struct Product*)malloc(n1 * sizeof(struct Product));
     struct Product* R = (struct Product*)malloc(n2 * sizeof(struct Product));
 
-    // ½«Êı¾İ¸´ÖÆµ½ÁÙÊ±Êı×é L[] ºÍ R[]
+    // å°†æ•°æ®å¤åˆ¶åˆ°ä¸´æ—¶æ•°ç»„ L[] å’Œ R[]
     for (i = 0; i < n1; i++)
         L[i] = products[left + i];
     for (j = 0; j < n2; j++)
         R[j] = products[mid + 1 + j];
 
-    // ¹é²¢ÁÙÊ±Êı×éµ½ products[left..right]
+    // å½’å¹¶ä¸´æ—¶æ•°ç»„åˆ° products[left..right]
     i = 0;
     j = 0;
     k = left;
@@ -423,41 +423,41 @@ void merge(struct Product products[], int left, int mid, int right) {
         k++;
     }
 
-    // ¸´ÖÆ L[] µÄÊ£ÓàÔªËØ
+    // å¤åˆ¶ L[] çš„å‰©ä½™å…ƒç´ 
     while (i < n1) {
         products[k] = L[i];
         i++;
         k++;
     }
 
-    // ¸´ÖÆ R[] µÄÊ£ÓàÔªËØ
+    // å¤åˆ¶ R[] çš„å‰©ä½™å…ƒç´ 
     while (j < n2) {
         products[k] = R[j];
         j++;
         k++;
     }
 
-    // ÊÍ·Å¶¯Ì¬·ÖÅäµÄÄÚ´æ
+    // é‡Šæ”¾åŠ¨æ€åˆ†é…çš„å†…å­˜
     free(L);
     free(R);
 }
 
-// ¹é²¢ÅÅĞòÒÔÍË»õÁ¿Îª¹Ø¼ü×Ö¶ÔÊı¾İ½øĞĞÅÅĞò
+// å½’å¹¶æ’åºä»¥é€€è´§é‡ä¸ºå…³é”®å­—å¯¹æ•°æ®è¿›è¡Œæ’åº
 void mergeSortByReturnQuantity(struct Product products[], int left, int right) {
     if (left < right) {
-        // ¼ÆËãÖĞ¼äµã
+        // è®¡ç®—ä¸­é—´ç‚¹
         int mid = left + (right - left) / 2;
 
-        // µİ¹éÅÅĞò×óÓÒ×ÓÊı×é
+        // é€’å½’æ’åºå·¦å³å­æ•°ç»„
         mergeSortByReturnQuantity(products, left, mid);
         mergeSortByReturnQuantity(products, mid + 1, right);
 
-        // ºÏ²¢Á½¸ö×ÓÊı×é
+        // åˆå¹¶ä¸¤ä¸ªå­æ•°ç»„
         merge(products, left, mid, right);
     }
 }
 
-// »ñÈ¡Êı×éÖĞµÄ×î´óÖµ
+// è·å–æ•°ç»„ä¸­çš„æœ€å¤§å€¼
 int getMax(int arr[], int num) {
     int max = arr[0];
     for (int i = 1; i < num; i++) {
@@ -468,44 +468,44 @@ int getMax(int arr[], int num) {
     return max;
 }
 
-// Ê¹ÓÃ¼ÆÊıÅÅĞò¶ÔÊı×é°´ÕÕÖ¸¶¨µÄÎ»½øĞĞÅÅĞò
+// ä½¿ç”¨è®¡æ•°æ’åºå¯¹æ•°ç»„æŒ‰ç…§æŒ‡å®šçš„ä½è¿›è¡Œæ’åº
 void countSort(int arr[], int num, int exp) {
-    const int base = 10; // »ùÊıÎª10
+    const int base = 10; // åŸºæ•°ä¸º10
     int* output = (int*)malloc(num * sizeof(int));
     int* count = (int*)malloc(base * sizeof(int));
 
-    // ³õÊ¼»¯¼ÆÊıÊı×é
+    // åˆå§‹åŒ–è®¡æ•°æ•°ç»„
     for (int i = 0; i < base; i++) {
         count[i] = 0;
     }
 
-    // ¼ÆËãÃ¿¸öÊı×ÖµÄ³öÏÖ´ÎÊı
+    // è®¡ç®—æ¯ä¸ªæ•°å­—çš„å‡ºç°æ¬¡æ•°
     for (int i = 0; i < num; i++) {
         count[(arr[i] / exp) % base]++;
     }
 
-    // ½« count[i] ÀÛ¼Óµ½ count[i-1] ÖĞ£¬´ËÊ± count[i-1] ±íÊ¾Ğ¡ÓÚµÈÓÚ i µÄÊı×ÖµÄ¸öÊı
+    // å°† count[i] ç´¯åŠ åˆ° count[i-1] ä¸­ï¼Œæ­¤æ—¶ count[i-1] è¡¨ç¤ºå°äºç­‰äº i çš„æ•°å­—çš„ä¸ªæ•°
     for (int i = 1; i < base; i++) {
         count[i] += count[i - 1];
     }
 
-    // ´ÓºóÍùÇ°±éÀúÔ­Ê¼Êı×é£¬¸ù¾İ count Êı×éÖĞµÄĞÅÏ¢·ÅÖÃÔªËØµ½Êä³öÊı×éÖĞ
+    // ä»åå¾€å‰éå†åŸå§‹æ•°ç»„ï¼Œæ ¹æ® count æ•°ç»„ä¸­çš„ä¿¡æ¯æ”¾ç½®å…ƒç´ åˆ°è¾“å‡ºæ•°ç»„ä¸­
     for (int i = num - 1; i >= 0; i--) {
         output[count[(arr[i] / exp) % base] - 1] = arr[i];
         count[(arr[i] / exp) % base]--;
     }
 
-    // ½«Êä³öÊı×é¸´ÖÆµ½Ô­Ê¼Êı×é
+    // å°†è¾“å‡ºæ•°ç»„å¤åˆ¶åˆ°åŸå§‹æ•°ç»„
     for (int i = 0; i < num; i++) {
         arr[i] = output[i];
     }
 
-    // ÊÍ·Å¶¯Ì¬·ÖÅäµÄÄÚ´æ
+    // é‡Šæ”¾åŠ¨æ€åˆ†é…çš„å†…å­˜
     free(output);
     free(count);
 }
 
-// »ùÊıÅÅĞò¶ÔÍË»õ½ğ¶î½øĞĞÅÅĞò
+// åŸºæ•°æ’åºå¯¹é€€è´§é‡‘é¢è¿›è¡Œæ’åº
 void radixSortByReturnMoney(struct Product products[], int numProducts) {
     clock_t start_time = clock();
 
@@ -516,12 +516,12 @@ void radixSortByReturnMoney(struct Product products[], int numProducts) {
 
     int max = getMax(returnMoneyInt, numProducts);
 
-    // Í¨¹ıÃ¿Ò»Î»½øĞĞ¼ÆÊıÅÅĞò
+    // é€šè¿‡æ¯ä¸€ä½è¿›è¡Œè®¡æ•°æ’åº
     for (int exp = 1; max / exp > 0; exp *= 10) {
         countSort(returnMoneyInt, numProducts, exp);
     }
 
-    // ½«ÅÅĞòºóµÄÊı¾İĞ´»Øµ½Ô­Ê¼Êı×é
+    // å°†æ’åºåçš„æ•°æ®å†™å›åˆ°åŸå§‹æ•°ç»„
     for (int i = 0; i < numProducts; i++) {
         products[i].returnmoney = returnMoneyInt[i] / 100.0;
     }
@@ -530,14 +530,14 @@ void radixSortByReturnMoney(struct Product products[], int numProducts) {
 
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("\n12¡¢»ùÊıÅÅĞò¶ÔÍË»õ½ğ¶î½øĞĞÅÅĞò»¨ÁË %lf Ãë¡£\n", elapsed_time);
+    printf("\n12ã€åŸºæ•°æ’åºå¯¹é€€è´§é‡‘é¢è¿›è¡Œæ’åºèŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
 }
 
 
-// Êä³öÇ°10¸ö¼ÇÂ¼
+// è¾“å‡ºå‰10ä¸ªè®°å½•
 void printTop10(struct Product products[], int numProducts) {
-    printf("\nÇ°10¸ö¼ÇÂ¼£¨ÉıĞò£©£º\n");
-    printf("²úÆ·Ãû³Æ\tµ¥¼Û\tÏúÊÛÊıÁ¿\t¿â´æÊıÁ¿\tÖØÁ¿\tÌå»ı\tÍË»õÊıÁ¿\tÏúÊÛ¶î\t¿â´æ½ğ¶î\tÍË¿î½ğ¶î\n");
+    printf("\nå‰10ä¸ªè®°å½•ï¼ˆå‡åºï¼‰ï¼š\n");
+    printf("äº§å“åç§°\tå•ä»·\té”€å”®æ•°é‡\tåº“å­˜æ•°é‡\té‡é‡\tä½“ç§¯\té€€è´§æ•°é‡\té”€å”®é¢\tåº“å­˜é‡‘é¢\té€€æ¬¾é‡‘é¢\n");
 
     int topCount = (numProducts < 10) ? numProducts : 10;
 
@@ -556,42 +556,42 @@ void printTop10(struct Product products[], int numProducts) {
     }
 }
 
-// ²Ëµ¥À¸
+// èœå•æ 
 void Menu(){
     printf("----------------------------------------------\n");
-    printf("          ÆóÒµµÄÉÌÆ·ÏúÊÛÍ³¼ÆÏµÍ³\n");
+    printf("          ä¼ä¸šçš„å•†å“é”€å”®ç»Ÿè®¡ç³»ç»Ÿ\n");
     printf("----------------------------------------------\n");
-    printf("\t0. ÍË³öÏµÍ³\n");
-    printf("\t1. ´òÓ¡³õÊ¼ÎÄ¼ş\n");
-    printf("\t2. ¼ÆËãÏúÊÛ¶î¡¢¿â´æ½ğ¶î¡¢ÍË»õ½ğ¶î£¬²¢¼ÇÂ¼¼ÆËãËùÓÃµÄÊ±¼ä\n");
-    printf("\t3. Êä³öĞÂÊı¾İ\n");
-    printf("\t4. Ö±½Ó²åÈëÅÅĞò¶ÔÉÌÆ·µ¥¼Û½øĞĞÅÅĞò\n");
-    printf("\t5. ÕÛ°ë²åÈëÅÅĞò¶ÔÏú³öÊıÁ¿½øĞĞÅÅĞò\n");
-    printf("\t6. Ï£¶ûÅÅĞò¶ÔÏúÊÛ¶î½øĞĞÅÅĞò\n");
-    printf("\t7. Ã°ÅİÅÅĞò¶Ô¿â´æÁ¿½øĞĞÅÅĞò\n");
-    printf("\t8. ¿ìËÙÅÅĞò¶Ô¿â´æ½ğ¶î½øĞĞÅÅĞò\n");
-    printf("\t9. Ñ¡ÔñÅÅĞò¶ÔÖØÁ¿½øĞĞÅÅĞò\n");
-    printf("\t10. ¶ÑÅÅĞò¶ÔÌå»ı½øĞĞÅÅĞò\n");
-    printf("\t11. ¹é²¢ÅÅĞò¶ÔÍË»õÁ¿½øĞĞÅÅĞò\n");
-    printf("\t12. »ùÊıÅÅĞò¶ÔÍË»õ½ğ¶î½øĞĞÅÅĞò\n");
-    printf("\t13. Ë¢ĞÂÎÄ¼ş(Ğ´ÎÄ¼ş²Ù×÷)\n");
+    printf("\t0. é€€å‡ºç³»ç»Ÿ\n");
+    printf("\t1. æ‰“å°åˆå§‹æ–‡ä»¶\n");
+    printf("\t2. è®¡ç®—é”€å”®é¢ã€åº“å­˜é‡‘é¢ã€é€€è´§é‡‘é¢ï¼Œå¹¶è®°å½•è®¡ç®—æ‰€ç”¨çš„æ—¶é—´\n");
+    printf("\t3. è¾“å‡ºæ–°æ•°æ®\n");
+    printf("\t4. ç›´æ¥æ’å…¥æ’åºå¯¹å•†å“å•ä»·è¿›è¡Œæ’åº\n");
+    printf("\t5. æŠ˜åŠæ’å…¥æ’åºå¯¹é”€å‡ºæ•°é‡è¿›è¡Œæ’åº\n");
+    printf("\t6. å¸Œå°”æ’åºå¯¹é”€å”®é¢è¿›è¡Œæ’åº\n");
+    printf("\t7. å†’æ³¡æ’åºå¯¹åº“å­˜é‡è¿›è¡Œæ’åº\n");
+    printf("\t8. å¿«é€Ÿæ’åºå¯¹åº“å­˜é‡‘é¢è¿›è¡Œæ’åº\n");
+    printf("\t9. é€‰æ‹©æ’åºå¯¹é‡é‡è¿›è¡Œæ’åº\n");
+    printf("\t10. å †æ’åºå¯¹ä½“ç§¯è¿›è¡Œæ’åº\n");
+    printf("\t11. å½’å¹¶æ’åºå¯¹é€€è´§é‡è¿›è¡Œæ’åº\n");
+    printf("\t12. åŸºæ•°æ’åºå¯¹é€€è´§é‡‘é¢è¿›è¡Œæ’åº\n");
+    printf("\t13. åˆ·æ–°æ–‡ä»¶(å†™æ–‡ä»¶æ“ä½œ)\n");
     printf("----------------------------------------------\n");
-    printf("ÇëÊäÈëÄúĞèÒªµÄ¹¦ÄÜ£º");
+    printf("è¯·è¾“å…¥æ‚¨éœ€è¦çš„åŠŸèƒ½ï¼š");
 }
 
-// ½ÓÊÜÓÃ»§µÄĞèÇó
+// æ¥å—ç”¨æˆ·çš„éœ€æ±‚
 void Key(struct Product products[], int numProducts){
-    // ¶ÁÈ¡ÓÃ»§ÊäÈë
+    // è¯»å–ç”¨æˆ·è¾“å…¥
     int userKey = 0;
     scanf("%d", &userKey);
-    // ³õÊ¼»¯¶ÁÈ¡Ê±¼äµÄ¹¦ÄÜ±äÁ¿
+    // åˆå§‹åŒ–è¯»å–æ—¶é—´çš„åŠŸèƒ½å˜é‡
     clock_t start_time = clock();
     clock_t end_time = clock();
     double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
     switch (userKey)
     {
     case 0:
-        printf("¡¾³É¹¦ÍË³ö¡¿\n");
+        printf("ã€æˆåŠŸé€€å‡ºã€‘\n");
         exit(0);
         break;
 
@@ -632,7 +632,7 @@ void Key(struct Product products[], int numProducts){
         quickSortByStockMoney(products, 0, numProducts - 1);
         end_time = clock();
         elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-        printf("\n8¡¢¿ìËÙÅÅĞòÒÔ¿â´æ½ğ¶îÎª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+        printf("\n8ã€å¿«é€Ÿæ’åºä»¥åº“å­˜é‡‘é¢ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
         printTop10(products, numProducts);
         break;
 
@@ -651,7 +651,7 @@ void Key(struct Product products[], int numProducts){
         mergeSortByReturnQuantity(products, 0, numProducts - 1);
         end_time = clock();
         elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-        printf("\n11¡¢¹é²¢ÅÅĞòÒÔÍË»õÁ¿Îª¹Ø¼ü×Ö»¨ÁË %lf Ãë¡£\n", elapsed_time);
+        printf("\n11ã€å½’å¹¶æ’åºä»¥é€€è´§é‡ä¸ºå…³é”®å­—èŠ±äº† %lf ç§’ã€‚\n", elapsed_time);
         printTop10(products, numProducts);
         break;
 
@@ -666,13 +666,13 @@ void Key(struct Product products[], int numProducts){
     }
 }
 
-// Ö÷º¯Êı
+// ä¸»å‡½æ•°
 int main() {
     struct Product products[MAX_PRODUCTS];
     int numProducts;
-    // ¶ÁÎÄ¼ş
-    readProducts("ÉÌÆ·ÏúÊÛÇé¿ö.txt", products, &numProducts);
-    // Ö÷²Ëµ¥À¸
+    // è¯»æ–‡ä»¶
+    readProducts("å•†å“é”€å”®æƒ…å†µ.txt", products, &numProducts);
+    // ä¸»èœå•æ 
     while (1)
     {
         Menu();
